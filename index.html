@@ -2,320 +2,343 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Полная правовая база РФ (актуальная редакция)</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Сайт обновляется · ЗАКОНЫ ОБЛАСТИ</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --gray: #95a5a6;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* текст не выделяется — не копируется */
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); color: var(--dark); line-height: 1.6; min-height: 100vh; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-        header { text-align: center; margin-bottom: 40px; padding: 30px; background: white; border-radius: 12px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
-        header::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--secondary), var(--accent)); }
-        h1 { color: var(--primary); margin-bottom: 10px; font-size: 2.5rem; font-weight: 700; }
-        .subtitle { color: var(--gray); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
-        .search-container { margin: 30px 0; position: relative; max-width: 800px; margin-left: auto; margin-right: auto; }
-        .search-box { display: flex; align-items: center; background: white; border-radius: 50px; padding: 5px; box-shadow: var(--shadow); transition: var(--transition); }
-        .search-box:focus-within { box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); transform: translateY(-2px); }
-        #global-search { flex: 1; padding: 15px 20px; font-size: 16px; border: none; border-radius: 50px; outline: none; }
-        .search-icon { padding: 0 20px; color: var(--gray); }
-        #search-results { margin-top: 20px; display: none; background: white; border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; max-height: 500px; overflow-y: auto; }
-        .search-result-item { padding: 15px 20px; border-bottom: 1px solid #eee; cursor: pointer; transition: var(--transition); display: flex; align-items: center; }
-        .search-result-item:hover { background: var(--light); }
-        .search-result-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 18px; color: white; }
-        .search-result-details { flex: 1; }
-        .search-result-codex { font-size: 12px; color: var(--gray); margin-bottom: 5px; }
-        .search-result-article { font-weight: bold; color: var(--primary); margin-bottom: 5px; }
-        .search-result-violation { font-size: 14px; color: #555; }
-        .folders { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px; }
-        .folder { background: white; padding: 30px 25px; border-radius: 12px; box-shadow: var(--shadow); text-align: center; cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; }
-        .folder::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--secondary); }
-        .folder:hover { transform: translateY(-10px); box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15); }
-        .folder-icon { font-size: 48px; margin-bottom: 20px; color: var(--secondary); }
-        .folder-title { font-size: 20px; font-weight: bold; color: var(--primary); margin-bottom: 10px; }
-        .folder-description { color: var(--gray); font-size: 14px; line-height: 1.5; }
-        .codex-content { display: none; margin-top: 30px; background: white; border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
-        .codex-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 30px; background: var(--primary); color: white; }
-        .codex-title { font-size: 24px; font-weight: 700; }
-        .back-button { background: rgba(255, 255, 255, 0.2); color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: var(--transition); }
-        .back-button:hover { background: rgba(255, 255, 255, 0.3); }
-        .codex-search-container { padding: 20px 30px; border-bottom: 1px solid #eee; }
-        .codex-search-box { display: flex; align-items: center; background: var(--light); border-radius: 50px; padding: 5px; max-width: 500px; }
-        .codex-search-box input { flex: 1; padding: 12px 20px; font-size: 15px; border: none; background: transparent; outline: none; }
-        .codex-search-icon { padding: 0 20px; color: var(--gray); }
-        .codex-table-container { overflow-x: auto; max-height: 70vh; overflow-y: auto; }
-        .codex-table { width: 100%; border-collapse: collapse; }
-        .codex-table th { background: var(--light); color: var(--primary); padding: 15px 20px; text-align: left; font-weight: 600; position: sticky; top: 0; }
-        .codex-table td { padding: 15px 20px; border-bottom: 1px solid #eee; }
-        .codex-table tr:hover { background: #f9f9f9; }
-        .chapter-row { background: #f1f8ff !important; }
-        .chapter-row td { padding: 18px 20px; font-size: 16px; font-weight: 600; color: var(--primary); }
-        .info-row td { background: #fff8e7; font-style: italic; color: #8a6e2b; }
-        .no-results { text-align: center; padding: 40px; color: var(--gray); }
-        .no-results i { font-size: 48px; margin-bottom: 15px; color: var(--gray); }
-        .highlighted { background-color: #fff9e6 !important; box-shadow: inset 0 0 0 2px var(--warning); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: inset 0 0 0 2px var(--warning); } 50% { box-shadow: inset 0 0 0 2px rgba(243, 156, 18, 0.5); } 100% { box-shadow: inset 0 0 0 2px var(--warning); } }
-        footer { text-align: center; padding: 30px 0; margin-top: 50px; color: var(--gray); font-size: 14px; border-top: 1px solid #ddd; }
-        @media (max-width: 768px) { .folders { grid-template-columns: 1fr; } .codex-header { flex-direction: column; gap: 15px; align-items: flex-start; } h1 { font-size: 2rem; } .codex-table th, .codex-table td { padding: 10px 15px; } }
+
+        body {
+            font-family: 'Poppins', 'Inter', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: radial-gradient(ellipse at 20% 30%, #0b1a2a, #030c15);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* атмосферные движущиеся лучи/сетка — очень красиво */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at 40% 50%, rgba(0, 180, 255, 0.08), transparent 70%);
+            animation: slowDrift 18s infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" opacity="0.1"><path fill="none" stroke="rgba(100,200,255,0.2)" stroke-width="1" d="M0 400 L800 400 M400 0 L400 800 M200 50 L600 750 M600 50 L200 750"/><circle cx="400" cy="400" r="100" stroke="rgba(100,200,255,0.15)" fill="none"/><circle cx="400" cy="400" r="180" stroke="rgba(100,200,255,0.08)" fill="none"/></svg>');
+            background-repeat: repeat;
+            background-size: 120px;
+            pointer-events: none;
+            opacity: 0.3;
+            animation: subtlePan 30s linear infinite;
+        }
+
+        @keyframes slowDrift {
+            0% { transform: translate(-5%, -5%) scale(1); opacity: 0.4; }
+            100% { transform: translate(5%, 5%) scale(1.1); opacity: 0.8; }
+        }
+
+        @keyframes subtlePan {
+            0% { background-position: 0 0; }
+            100% { background-position: 200px 200px; }
+        }
+
+        /* главная карточка с неоновым свечением */
+        .glass-card {
+            max-width: 680px;
+            width: 100%;
+            background: rgba(12, 25, 40, 0.55);
+            backdrop-filter: blur(12px);
+            border-radius: 3rem;
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(80, 180, 255, 0.2), 0 0 30px rgba(0, 160, 255, 0.2);
+            padding: 2.8rem 2rem 3rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(80, 200, 255, 0.25);
+            position: relative;
+            z-index: 3;
+            animation: floatIn 0.8s ease-out;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(0, 200, 255, 0.4), 0 0 40px rgba(0, 160, 255, 0.3);
+            border-color: rgba(0, 180, 255, 0.5);
+        }
+
+        @keyframes floatIn {
+            0% { opacity: 0; transform: scale(0.94) translateY(30px); backdrop-filter: blur(0px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); backdrop-filter: blur(12px); }
+        }
+
+        /* группа шестерёнок — красивое вращение */
+        .gears-area {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .gear-icon {
+            display: inline-block;
+            font-size: 4.2rem;
+            filter: drop-shadow(0 0 8px rgba(0, 200, 255, 0.6));
+            transition: all 0.2s;
+        }
+
+        .spin-slow {
+            animation: spinCustom 5s infinite linear;
+        }
+
+        .spin-medium {
+            animation: spinCustom 3s infinite linear reverse;
+        }
+
+        .spin-fast {
+            animation: spinCustom 2s infinite linear;
+        }
+
+        @keyframes spinCustom {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .telegram-chip {
+            background: rgba(0, 150, 200, 0.2);
+            backdrop-filter: blur(4px);
+            border-radius: 100px;
+            padding: 0.4rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #b5e4ff;
+            border: 1px solid rgba(0, 200, 255, 0.4);
+            margin-left: 0.5rem;
+            letter-spacing: 0.3px;
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF, #7fc9ff, #3a9eff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 0.8rem 0 0.4rem;
+            text-shadow: 0 2px 10px rgba(0, 160, 255, 0.3);
+            letter-spacing: -0.01em;
+        }
+
+        .badge {
+            background: rgba(255, 215, 150, 0.15);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffdd99;
+            display: inline-block;
+            border: 1px solid rgba(255, 200, 100, 0.3);
+            letter-spacing: 0.4px;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .message-glow {
+            font-size: 1.12rem;
+            line-height: 1.55;
+            color: #e1f0ff;
+            font-weight: 450;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .topic-highlight {
+            background: linear-gradient(110deg, #0a2a3b, #042838);
+            padding: 0.6rem 1.6rem;
+            border-radius: 80px;
+            display: inline-block;
+            margin: 1rem 0 0.7rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #c2efff;
+            border: 1px solid rgba(0, 190, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 180, 255, 0.2);
+            backdrop-filter: blur(4px);
+            letter-spacing: 0.3px;
+        }
+
+        .divider-neon {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3ab4ff, #b0e0ff, #3ab4ff, transparent);
+            margin: 1.8rem auto;
+            border-radius: 4px;
+            animation: pulseDivider 2.5s infinite alternate;
+        }
+
+        @keyframes pulseDivider {
+            0% { opacity: 0.4; width: 70px; }
+            100% { opacity: 1; width: 130px; }
+        }
+
+        .info-bubbles {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .bubble {
+            background: rgba(20, 40, 60, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #bbdef5;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(0, 180, 240, 0.3);
+            transition: all 0.2s;
+        }
+
+        .footer-meta {
+            margin-top: 2.5rem;
+            font-size: 0.8rem;
+            color: #8aaec0;
+            border-top: 1px solid rgba(100, 180, 220, 0.25);
+            padding-top: 1.4rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.4rem;
+            flex-wrap: wrap;
+            letter-spacing: 0.2px;
+        }
+
+        /* декоративные парящие частицы */
+        .particle {
+            position: absolute;
+            background: rgba(0, 200, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatParticle 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-40px) translateX(25px) scale(0.8); opacity: 0; }
+        }
+
+        @media (max-width: 550px) {
+            .glass-card {
+                padding: 1.8rem 1.3rem 2.2rem;
+            }
+            h1 {
+                font-size: 1.9rem;
+            }
+            .gear-icon {
+                font-size: 3rem;
+            }
+            .topic-highlight {
+                font-size: 1rem;
+                padding: 0.4rem 1rem;
+            }
+            .message-glow {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* небольшая адаптация для красоты */
+        .glow-text {
+            text-shadow: 0 0 8px rgba(0, 160, 255, 0.5);
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <h1>Полная правовая база Российской Федерации</h1>
-        <p class="subtitle">Актуальные редакции: Дорожный кодекс, КоАП РФ, Уголовный кодекс РФ, Федеральное постановление №1 (по состоянию на 14.04.2026)</p>
-    </header>
-    <div class="search-container">
-        <div class="search-box">
-            <div class="search-icon"><i class="fas fa-search"></i></div>
-            <input type="text" id="global-search" placeholder="Поиск по всем кодексам и постановлениям...">
+    <!-- динамические частицы (очень красиво) -->
+    <div class="particle" style="width: 120px; height: 120px; top: -30px; left: -40px; background: radial-gradient(circle, rgba(0,200,255,0.1), transparent); animation-duration: 12s;"></div>
+    <div class="particle" style="width: 80px; height: 80px; bottom: 10%; right: -20px; background: radial-gradient(circle, rgba(0,180,255,0.15), transparent); animation-duration: 10s; animation-delay: 1s;"></div>
+    <div class="particle" style="width: 200px; height: 200px; top: 20%; right: -60px; background: radial-gradient(circle, rgba(100,180,255,0.08), transparent); animation-duration: 15s;"></div>
+
+    <div class="glass-card">
+        <!-- шестерёнки с анимациями + телеграм намёк -->
+        <div class="gears-area">
+            <span class="gear-icon spin-slow">⚙️</span>
+            <span class="gear-icon spin-medium">⚙️</span>
+            <span class="gear-icon spin-fast">⚙️</span>
+            <div class="telegram-chip">
+                <span>📡</span> Telegram
+            </div>
         </div>
-        <div id="search-results"></div>
-    </div>
-    <div class="folders">
-        <div class="folder" data-codex="dk"><div class="folder-icon"><i class="fas fa-car"></i></div><div class="folder-title">Дорожный кодекс РФ</div><div class="folder-description">ПДД, штрафы ГИБДД, ответственность</div></div>
-        <div class="folder" data-codex="koap"><div class="folder-icon"><i class="fas fa-gavel"></i></div><div class="folder-title">Кодекс об административных правонарушениях РФ</div><div class="folder-description">Административные правонарушения</div></div>
-        <div class="folder" data-codex="uk"><div class="folder-icon"><i class="fas fa-balance-scale"></i></div><div class="folder-title">Уголовный кодекс РФ</div><div class="folder-description">Преступления и уголовная ответственность</div></div>
-        <div class="folder" data-codex="fp"><div class="folder-icon"><i class="fas fa-file-alt"></i></div><div class="folder-title">Федеральное постановление №1</div><div class="folder-description">Правила трудовой и служебной дисциплины (Оренбургская обл.)</div></div>
+
+        <h1>Сайт временно перенесён</h1>
+
+        <div class="badge">
+            🔄  обновление формата  🎯
+        </div>
+
+        <div class="message-glow">
+            Вся актуальная информация теперь в Telegram‑канале
+        </div>
+
+        <div class="topic-highlight">
+            «ЗАКОНЫ ОБЛАСТИ»
+        </div>
+
+        <div class="message-glow" style="margin-top: 0.8rem;">
+            Когда открою основной сайт — пока не знаю.<br>
+            Следите за публикациями в этой теме.
+        </div>
+
+        <div class="divider-neon"></div>
+
+        <div class="info-bubbles">
+            <div class="bubble">📌  Все нормативные документы там</div>
+            <div class="bubble">⚖️  Законы области — оперативно</div>
+        </div>
+
+        <div class="footer-meta">
+            <span>✨  Решение о временном переносе</span>
+            <span>⏳  О дате возвращения сообщу позже</span>
+        </div>
     </div>
 
-    <!-- Дорожный кодекс -->
-    <div id="dk-content" class="codex-content">
-        <div class="codex-header"><h2 class="codex-title">Дорожный кодекс РФ</h2><button class="back-button"><i class="fas fa-arrow-left"></i> Назад</button></div>
-        <div class="codex-search-container"><div class="codex-search-box"><div class="codex-search-icon"><i class="fas fa-search"></i></div><input type="text" id="dk-search" placeholder="Поиск в ДК..."></div></div>
-        <div class="codex-table-container"><table class="codex-table" id="dk-table"></table></div>
-    </div>
-    <!-- КоАП РФ -->
-    <div id="koap-content" class="codex-content">
-        <div class="codex-header"><h2 class="codex-title">Кодекс об административных правонарушениях РФ</h2><button class="back-button"><i class="fas fa-arrow-left"></i> Назад</button></div>
-        <div class="codex-search-container"><div class="codex-search-box"><div class="codex-search-icon"><i class="fas fa-search"></i></div><input type="text" id="koap-search" placeholder="Поиск в КоАП..."></div></div>
-        <div class="codex-table-container"><table class="codex-table" id="koap-table"></table></div>
-    </div>
-    <!-- Уголовный кодекс -->
-    <div id="uk-content" class="codex-content">
-        <div class="codex-header"><h2 class="codex-title">Уголовный кодекс РФ</h2><button class="back-button"><i class="fas fa-arrow-left"></i> Назад</button></div>
-        <div class="codex-search-container"><div class="codex-search-box"><div class="codex-search-icon"><i class="fas fa-search"></i></div><input type="text" id="uk-search" placeholder="Поиск в УК..."></div></div>
-        <div class="codex-table-container"><table class="codex-table" id="uk-table"></table></div>
-    </div>
-    <!-- Федеральное постановление -->
-    <div id="fp-content" class="codex-content">
-        <div class="codex-header"><h2 class="codex-title">Федеральное постановление №1 "Об утверждении общих правил трудовой и служебной дисциплины"</h2><button class="back-button"><i class="fas fa-arrow-left"></i> Назад</button></div>
-        <div class="codex-search-container"><div class="codex-search-box"><div class="codex-search-icon"><i class="fas fa-search"></i></div><input type="text" id="fp-search" placeholder="Поиск в постановлении..."></div></div>
-        <div class="codex-table-container"><table class="codex-table" id="fp-table"></table></div>
-    </div>
-    <footer>Полная правовая база РФ © 2026. Информация актуальна на 14 апреля 2026 года.</footer>
-</div>
-<script>
-    // ПОЛНЫЕ ДАННЫЕ ВСЕХ КОДЕКСОВ (согласно предоставленным файлам)
-    const codexes = {
-        dk: {
-            title: "Дорожный кодекс РФ", icon: "fas fa-car", color: "#3498db",
-            data: [
-                { chapter: "Глава 1. Допуск к управлению, состояние водителя, документы" },
-                { article: "1.1.1", violation: "Управление ТС без водительского удостоверения (соответствующей категории)", punishment: "Штраф 5 000💵" },
-                { article: "1.1.2", violation: "Управление ТС водителем, лишенным права управления", punishment: "Штраф 6 500💵 или арест" },
-                { article: "1.2.1", violation: "Управление ТС в состоянии алкогольного или иного опьянения", punishment: "Штраф 8 000💵 + лишение права управления ТС" },
-                { article: "1.2.2", violation: "Управление ТС в состоянии опьянения без прав или лишенным прав", punishment: "Штраф 10 000💵 или арест" },
-                { article: "1.2.3", violation: "Отказ от медицинского освидетельствования на состояние опьянения", punishment: "Штраф 10 000💵 + лишение права управления ТС" },
-                { article: "1.3", violation: "Управление технически неисправным ТС (создающим опасность)", punishment: "Эвакуация ТС на спец. стоянку + штраф 1 000💵" },
-                { article: "1.4", violation: "Управление ТС без действующего полиса ОСАГО", punishment: "Штраф 2 000💵" },
-                { article: "1.5", violation: "Управление ТС без регистрационных документов (СТС, ПТС не предъявлены)", punishment: "Штраф 3 000💵 + задержание ТС" },
-                { chapter: "Глава 2. Скоростной режим" },
-                { article: "2.1.1", violation: "Превышение скорости на 20-40 км/ч (на 1-2 передачи ТС)", punishment: "Штраф 500💵" },
-                { article: "2.1.2", violation: "Превышение скорости на 40-60 км/ч (на 3-4 передачи ТС)", punishment: "Штраф 1 000💵" },
-                { article: "2.1.3", violation: "Превышение скорости на 60-80 км/ч (на 5-6 передач ТС)", punishment: "Штраф 2 000💵 или лишение права управления ТС" },
-                { article: "2.1.4", violation: "Превышение скорости более чем на 80 км/ч (на 7-8 передач ТС)", punishment: "Штраф 4 000💵 или лишение права управления ТС" },
-                { article: "2.1.5", violation: "Повторное нарушение правил скоростного ограничения", punishment: "Штраф 5 000💵 + лишение права управления ТС" },
-                { article: "2.2", violation: "Движение без необходимости со слишком малой скоростью", punishment: "Штраф 1000💵" },
-                { chapter: "Глава 3. Маневрирование, расположение ТС, проезд перекрестков" },
-                { article: "3.1", violation: "Выезд на встречную полосу для объезда препятствия (если можно было объехать справа)", punishment: "Штраф 2 000💵" },
-                { article: "3.2.1", violation: "Выезд на встречную полосу НЕ для объезда препятствия (например, для обгона)", punishment: "Штраф 5 000💵 или лишение права управления ТС" },
-                { article: "3.2.2", violation: "Повторный выезд на встречную полосу НЕ для объезда препятствия", punishment: "Штраф 6 000💵 + лишение права управления ТС" },
-                { article: "3.3", violation: "Несоблюдение требований, предписанных дорожными знаками или разметкой", punishment: "Штраф 1 000💵" },
-                { article: "3.4", violation: "Нарушение правил расположения ТС на проезжей части (движение не по полосам, по обочине)", punishment: "Штраф 1 500💵" },
-                { article: "3.5", violation: "Нарушение правил остановки или стоянки", punishment: "Штраф 2 000💵" },
-                { article: "3.6.1", violation: "Небезопасное маневрирование (единичное действие: подъём колеса, резкое ускорение/торможение, опасное покачивание, виляние)", punishment: "Предупреждение или штраф 1 000💵" },
-                { article: "3.6.2", violation: "Опасное вождение (неоднократные агрессивные маневры: резкие перестроения, блокирование, создание аварийной ситуации)", punishment: "Штраф 4 000💵" },
-                { article: "3.7", violation: "Нарушение правил проезда перекрестков", punishment: "Штраф 1 500💵" },
-                { article: "3.8", violation: "Невыполнение требования ПДД уступить дорогу (пешеходам, ТС с преимуществом)", punishment: "Штраф 2 000💵" },
-                { article: "3.9", violation: "Нарушение правил поворота или разворота", punishment: "Штраф 1 500💵" },
-                { article: "3.10", violation: "Невключение или несвоевременное выключение указателей поворота", punishment: "Штраф 500💵" },
-                { article: "3.11", violation: "Движение задним ходом в запрещенных местах", punishment: "Штраф 2 000💵" },
-                { note: "Примечание: При повторном нарушении п. 3.6.1 в течение 30 дней — переквалификация на п. 3.6.2 (опасное вождение)." },
-                { chapter: "Глава 4. ДТП, грузоперевозки, состояние автомобиля" },
-                { article: "4.1.1", violation: "Участие в ДТП (с причинением легкого/среднего вреда здоровью)", punishment: "Штраф 5 000💵 или лишение права управления ТС" },
-                { article: "4.1.2", violation: "Оставление места ДТП участником", punishment: "Штраф 10 000💵 + лишение права управления ТС" },
-                { article: "4.2", violation: "Негорящие (неисправные) фары и габаритные огни в темноте/плохой видимости", punishment: "Штраф 500💵" },
-                { article: "4.3", violation: "Нарушение правил перевозки грузов (незакрепленный груз, превышение габаритов/массы, отсутствие знака)", punishment: "Штраф 2 000💵" },
-                { article: "4.4", violation: "Загрязнение номерных знаков, делающее их плохо читаемыми", punishment: "Штраф 500💵" },
-                { chapter: "Глава 5. Взаимодействие с сотрудниками полиции (ГИБДД)" },
-                { article: "5.1.1", violation: "Невыполнение законного требования сотрудника полиции (остановиться, предъявить документы)", punishment: "Штраф 3 000💵" },
-                { article: "5.1.2", violation: "Невыполнение законного требования сотрудника полиции об остановке ТС", punishment: "Штраф 5 000💵" },
-                { article: "5.2", violation: "Оказание сопротивления или неповиновение законному распоряжению сотрудника полиции", punishment: "Штраф 7 000💵 или арест (+ уголовная ответственность при насилии)" }
-            ]
-        },
-        koap: {
-            title: "Кодекс об административных правонарушениях РФ", icon: "fas fa-gavel", color: "#e74c3c",
-            data: [
-                { chapter: "Глава 1. Правонарушения, посягающие на права граждан" },
-                { article: "1.1", violation: "Оскорбление, унижение чести гражданина в неприличной форме", punishment: "Штраф 2 000💵" },
-                { article: "1.2", violation: "Клевета (распространение заведомо ложных сведений, порочащих честь и достоинство)", punishment: "Штраф 3 000💵" },
-                { article: "1.3", violation: "Дискриминация (пол, раса, национальность, язык и т.д.)", punishment: "Штраф 3 000💵" },
-                { article: "1.4", violation: "Мелкое хулиганство (нецензурная брань в общественных местах)", punishment: "Штраф 1 500💵" },
-                { chapter: "Глава 2. Правонарушения против общественного порядка и безопасности" },
-                { article: "2.1", violation: "Организация несанкционированного публичного собрания, митинга, демонстрации", punishment: "Штраф 5 000💵 и арест" },
-                { article: "2.2", violation: "Участие в несанкционированном публичном собрании, митинге, демонстрации", punishment: "Штраф 2 000💵 или арест" },
-                { article: "2.3", violation: "Громкое прослушивание музыки в населенных пунктах после 23:00", punishment: "Штраф 1 500💵" },
-                { article: "2.4", violation: "Организация блокирования транспортных коммуникаций или активное участие в блокировании", punishment: "Штраф 4 000💵" },
-                { article: "2.5", violation: "Нарушение правил перевозки, транспортирования оружия и патронов", punishment: "Штраф 5 000💵 и конфискация оружия и патронов" },
-                { article: "2.6", violation: "Нарушение общественного порядка", punishment: "Штраф 2 000💵 или арест" },
-                { chapter: "Глава 3. Правонарушения против порядка управления" },
-                { article: "3.1", violation: "Заведомо ложный вызов специализированных служб", punishment: "Штраф 8 000💵" },
-                { article: "3.2", violation: "Применение насилия в отношении представителя власти", punishment: "Штраф 5 000💵 и арест" },
-                { article: "3.3", violation: "Оскорбление, унижение чести представителя власти в неприличной форме", punishment: "Штраф 4 000💵" }
-            ]
-        },
-        uk: {
-            title: "Уголовный кодекс РФ", icon: "fas fa-balance-scale", color: "#2c3e50",
-            data: [
-                { chapter: "Глава 1. Преступления против жизни и здоровья" },
-                { article: "1.1", violation: "Убийство (умышленное причинение смерти)", punishment: "Пожизненное лишение свободы" },
-                { article: "1.2", violation: "Убийство по неосторожности", punishment: "Лишение свободы на 5 лет" },
-                { article: "1.3", violation: "Умышленное причинение тяжкого вреда здоровью (опасного для жизни, потеря органа и т.д.)", punishment: "Лишение свободы на 3 года" },
-                { article: "1.4", violation: "Умышленное причинение средней тяжести вреда здоровью", punishment: "Лишение свободы на 2 года" },
-                { article: "1.5", violation: "Умышленное причинение легкого вреда здоровью", punishment: "Лишение свободы на 1 год" },
-                { article: "1.6", violation: "Побои или иные насильственные действия из хулиганских побуждений или по мотивам ненависти", punishment: "Штраф 3 000💵 и арест" },
-                { article: "1.7", violation: "Угроза убийством или причинением тяжкого вреда здоровью", punishment: "Арест" },
-                { article: "1.8", violation: "Неоказание помощи больному (лицом, обязанным оказывать) повлекшее вред здоровью", punishment: "Штраф 5 000💵" },
-                { article: "1.9", violation: "Заведомое оставление без помощи лица в опасном состоянии", punishment: "Штраф 4 000💵" },
-                { chapter: "Глава 2. Преступления против свободы, чести и достоинства" },
-                { article: "2.1", violation: "Похищение человека", punishment: "Арест" },
-                { article: "2.2", violation: "Незаконное лишение человека свободы, не связанное с похищением", punishment: "Арест" },
-                { article: "2.3", violation: "Клевета (распространение заведомо ложных сведений, порочащих честь)", punishment: "Штраф 2 000💵" },
-                { chapter: "Глава 3. Преступления против конституционных прав и свобод" },
-                { article: "3.1", violation: "Дискриминация с использованием служебного положения", punishment: "По ситуации" },
-                { article: "3.2", violation: "Незаконное собирание или распространение сведений о частной жизни", punishment: "По ситуации" },
-                { article: "3.3", violation: "Нарушение тайны переписки, телефонных переговоров", punishment: "По ситуации" },
-                { article: "3.4", violation: "Незаконное проникновение в жилище", punishment: "По ситуации" },
-                { article: "3.5", violation: "Неправомерный отказ в предоставлении документов или ложная информация", punishment: "По ситуации" },
-                { chapter: "Глава 4. Преступления против собственности" },
-                { article: "4.1", violation: "Кража (тайное хищение)", punishment: "По ситуации" },
-                { article: "4.2", violation: "Грабеж (открытое хищение)", punishment: "По ситуации" },
-                { article: "4.3", violation: "Разбой (нападение с насилием)", punishment: "По ситуации" },
-                { article: "4.4", violation: "Мошенничество (хищение путем обмана)", punishment: "По ситуации" },
-                { article: "4.5", violation: "Вымогательство", punishment: "По ситуации" },
-                { article: "4.6", violation: "Умышленное уничтожение или повреждение чужого имущества (значительный ущерб)", punishment: "По ситуации" },
-                { chapter: "Глава 5. Преступления против общественной безопасности" },
-                { article: "5.1", violation: "Террористический акт", punishment: "По ситуации" },
-                { article: "5.2", violation: "Содействие террористической деятельности", punishment: "По ситуации" },
-                { article: "5.3", violation: "Несообщение о преступлении (террористического характера)", punishment: "По ситуации" },
-                { article: "5.4", violation: "Захват заложника", punishment: "По ситуации" },
-                { article: "5.5", violation: "Заведомо ложное сообщение об акте терроризма", punishment: "По ситуации" },
-                { article: "5.6", violation: "Создание банды (вооруженной группы)", punishment: "По ситуации" },
-                { article: "5.7", violation: "Организация преступного сообщества", punishment: "По ситуации" },
-                { article: "5.8", violation: "Занятие высшего положения в преступной иерархии", punishment: "По ситуации" },
-                { article: "5.9", violation: "Организация массовых беспорядков", punishment: "По ситуации" },
-                { article: "5.10", violation: "Хулиганство (грубое нарушение порядка с применением насилия)", punishment: "По ситуации" },
-                { article: "5.11", violation: "Вандализм (осквернение зданий, порча имущества)", punishment: "По ситуации" },
-                { article: "5.12.1", violation: "Незаконное проникновение на охраняемый объект или воинскую часть", punishment: "По ситуации" },
-                { article: "5.12.2", violation: "Неоднократное проникновение на служебную территорию после замечаний", punishment: "По ситуации" },
-                { article: "5.13", violation: "Незаконные приобретение, передача огнестрельного оружия", punishment: "По ситуации" },
-                { article: "5.14", violation: "Незаконные использование или применение огнестрельного оружия", punishment: "По ситуации" },
-                { article: "5.15", violation: "Ношение оружия в открытом виде в общественных местах", punishment: "По ситуации" },
-                { chapter: "Глава 6. Преступления против безопасности движения" },
-                { article: "6.1", violation: "Нарушение ПДД, повлекшее тяжкий вред здоровью", punishment: "По ситуации" },
-                { article: "6.2", violation: "Нарушение ПДД, повлекшее смерть", punishment: "По ситуации" },
-                { chapter: "Глава 7. Преступления против порядка управления" },
-                { article: "7.1", violation: "Посягательство на жизнь сотрудника правоохранительного органа", punishment: "По ситуации" },
-                { article: "7.2", violation: "Применение насилия в отношении представителя власти", punishment: "По ситуации" },
-                { article: "7.3", violation: "Оскорбление представителя власти", punishment: "По ситуации" },
-                { chapter: "Глава 8. Преступления против правосудия" },
-                { article: "8.1.1", violation: "Заведомо ложный донос о совершении преступления", punishment: "По ситуации" },
-                { article: "8.1.2", violation: "Дача заведомо ложных показаний при допросе", punishment: "По ситуации" },
-                { article: "8.1.3", violation: "Дача заведомо ложных показаний в суде", punishment: "По ситуации" },
-                { article: "8.2.1", violation: "Неуважение к суду (оскорбление участников разбирательства)", punishment: "Штраф 5 000💵" },
-                { article: "8.2.2", violation: "Оскорбление судьи или присяжного заседателя", punishment: "Штраф 7 000💵 или арест" },
-                { article: "8.3", violation: "Укрывательство преступлений", punishment: "По ситуации" },
-                { article: "8.4", violation: "Побег из места лишения свободы или из-под ареста", punishment: "По ситуации" },
-                { chapter: "Глава 9. Преступления против государственной власти" },
-                { article: "9.1", violation: "Вооруженный мятеж", punishment: "По ситуации" },
-                { article: "9.2", violation: "Превышение должностных полномочий", punishment: "По ситуации" },
-                { article: "9.3", violation: "Незаконное присвоение звания", punishment: "По ситуации" },
-                { article: "9.4", violation: "Получение взятки", punishment: "По ситуации" },
-                { article: "9.5", violation: "Дача взятки", punishment: "По ситуации" },
-                { article: "9.6", violation: "Халатность", punishment: "По ситуации" },
-                { article: "9.7", violation: "Разглашение государственной тайны", punishment: "По ситуации" },
-                { chapter: "Глава 10. Преступления против здоровья населения и общественной нравственности" },
-                { article: "10.1", violation: "Незаконные изготовление, приобретение, продажа, хранение наркотических веществ", punishment: "По ситуации" },
-                { article: "10.2", violation: "Незаконные приобретение, хранение, перевозка наркотиков в незначительном размере", punishment: "Штраф 3 000💵 + арест" }
-            ]
-        },
-        fp: {
-            title: "Федеральное постановление №1", icon: "fas fa-file-alt", color: "#8e44ad",
-            data: [
-                { info_text: "⚖️ Глава I. Общие положения: Постановление устанавливает единые дисциплинарные требования для всех работников на территории Оренбургской области. Цель — поддержание порядка, безопасности. Контроль: руководители, правительство области, МВД, ФСБ, прокуратура. Незнание правил не освобождает от ответственности." },
-                { chapter: "Глава II. Нарушения и дисциплинарная ответственность" },
-                { article: "1", violation: "Нарушение законодательства и уставов (федеральных законов, областных актов, приказов)", punishment: "Устное предупреждение, выговор, увольнение" },
-                { article: "2", violation: "Халатное отношение к обязанностям (бездействие, невыполнение обязанностей, отказ в помощи)", punishment: "Выговор, увольнение" },
-                { article: "3", violation: "Прогул и нарушение рабочего времени (отсутствие более 15 минут без уважительной причины, личные дела)", punishment: "Выговор, увольнение" },
-                { article: "4", violation: "Появление на работе в неподобающем виде (опьянение, грязная одежда, курение в неустановленных местах)", punishment: "Выговор, увольнение" },
-                { article: "5", violation: "Использование служебного транспорта и имущества в личных целях, небрежное отношение", punishment: "Выговор, увольнение (с возможной компенсацией ущерба)" },
-                { article: "6", violation: "Нарушение субординации и общения (грубость, переход на «ты» без разрешения, оскорбления, нецензурная лексика)", punishment: "Выговор, увольнение" },
-                { article: "7", violation: "Конфликтные ситуации и провокации, мешающие работе", punishment: "Выговор, увольнение" },
-                { article: "8", violation: "Неадекватное поведение (паника, истерика, агрессия)", punishment: "Выговор, увольнение" },
-                { article: "9", violation: "Нарушение правил радиосвязи (использование раций не по назначению, создание помех)", punishment: "Выговор, увольнение" },
-                { article: "10", violation: "Склонение к противоправным действиям (подстрекательство)", punishment: "Выговор, увольнение" },
-                { article: "11", violation: "Обман и введение в заблуждение (недостоверная информация, подделка документов)", punishment: "Выговор, увольнение" },
-                { article: "12", violation: "Повторные и грубые нарушения (три выговора → увольнение; грубые нарушения без предварительных выговоров)", punishment: "Увольнение" },
-                { chapter: "Глава III. Порядок применения наказаний" },
-                { info_text: "📌 1. Устное предупреждение объявляется на месте нарушения.\n📌 2. Выговор заносится в трудовую книжку. Снятие выговора — по системе снятия выговоров.\n📌 3. Увольнение приказом руководителя. Восстановление не ранее чем через 30 дней по решению администрации.\n📌 4. О всех случаях наказаний руководитель уведомляет правительство области в течение суток." },
-                { chapter: "Глава IV. Заключительные положения" },
-                { info_text: "📅 Постановление вступает в силу с 14 апреля 2026 года. Все организации и работники обязаны ознакомиться под подпись. Контроль за исполнением оставляет за собой Правительство Оренбургской области." }
-            ]
-        }
-    };
-
-    function populateTables() {
-        for (const id in codexes) {
-            const table = document.getElementById(`${id}-table`);
-            if (!table) continue;
-            let html = `<tr><th>Статья</th><th>Нарушение / Положение</th><th>Наказание</th></tr>`;
-            for (const item of codexes[id].data) {
-                if (item.chapter) html += `<tr class="chapter-row"><td colspan="3">${item.chapter}</td></tr>`;
-                else if (item.note) html += `<tr class="info-row"><td colspan="3"><i class="fas fa-info-circle"></i> ${item.note}</td></tr>`;
-                else if (item.info_text) html += `<tr class="info-row"><td colspan="3"><i class="fas fa-scroll"></i> ${item.info_text.replace(/\n/g, '<br>')}</td></tr>`;
-                else html += `<tr><td>${item.article}</td><td>${item.violation}</td><td>${item.punishment}</td></tr>`;
+    <script>
+        // небольшая дополнительная анимация для мягкого свечения (без функционала копирования/перехода)
+        // — только атмосфера, без действий
+        (function() {
+            const card = document.querySelector('.glass-card');
+            if(card) {
+                // просто для эстетики — лёгкое изменение градиента при наведении на иконки, но не критично
             }
-            table.innerHTML = html;
-        }
-    }
-
-    function showCodex(id) { document.querySelectorAll('.codex-content').forEach(c => c.style.display = 'none'); document.getElementById(`${id}-content`).style.display = 'block'; document.querySelector('.folders').style.display = 'none'; window.scrollTo(0,0); }
-    function showMainPage() { document.querySelectorAll('.codex-content').forEach(c => c.style.display = 'none'); document.querySelector('.folders').style.display = 'grid'; document.getElementById('search-results').style.display = 'none'; document.getElementById('global-search').value = ''; ['dk','koap','uk','fp'].forEach(i => { let inp = document.getElementById(`${i}-search`); if(inp) inp.value = ''; }); resetCodexTables(); }
-    function resetCodexTables() { for(const id in codexes) { const t = document.getElementById(`${id}-table`); if(t) for(let r of t.rows) r.style.display = ''; } }
-    function performCodexSearch(id) { const q = document.getElementById(`${id}-search`).value.toLowerCase().trim(); const t = document.getElementById(`${id}-table`); for(let i=1; i<t.rows.length; i++) { const row = t.rows[i]; const cells = row.cells; if(row.classList.contains('chapter-row') || row.classList.contains('info-row')) { let show = false; if(q && cells[0] && cells[0].innerText.toLowerCase().includes(q)) show = true; row.style.display = show ? '' : 'none'; continue; } if(cells.length && (cells[0].innerText.toLowerCase().includes(q) || cells[1].innerText.toLowerCase().includes(q) || cells[2].innerText.toLowerCase().includes(q))) row.style.display = ''; else row.style.display = 'none'; } }
-    function performGlobalSearch() { const q = document.getElementById('global-search').value.toLowerCase().trim(); const results = document.getElementById('search-results'); if(q.length<2) { results.style.display='none'; return; } let html='', count=0; for(const id in codexes) { const c = codexes[id]; for(const item of c.data) { if(item.chapter || item.info_text || item.note) continue; if(!item.article) continue; if(item.article.toLowerCase().includes(q) || item.violation.toLowerCase().includes(q) || item.punishment.toLowerCase().includes(q)) { count++; html += `<div class="search-result-item" data-codex="${id}" data-article="${item.article}"><div class="search-result-icon" style="background-color:${c.color}"><i class="${c.icon}"></i></div><div class="search-result-details"><div class="search-result-codex">${c.title}</div><div class="search-result-article">${item.article}</div><div class="search-result-violation">${item.violation.substring(0,100)}${item.violation.length>100?'…':''}</div></div></div>`; } } } if(count) { results.innerHTML = html; results.style.display='block'; document.querySelectorAll('.search-result-item').forEach(el=>{ el.addEventListener('click',()=>{ const cid = el.getAttribute('data-codex'); const art = el.getAttribute('data-article'); showCodex(cid); const tbl = document.getElementById(`${cid}-table`); for(let i=0;i<tbl.rows.length;i++) { const cell = tbl.rows[i].cells[0]; if(cell && cell.innerText.trim() === art) { document.querySelectorAll('.highlighted').forEach(h=>h.classList.remove('highlighted')); tbl.rows[i].classList.add('highlighted'); tbl.rows[i].scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>tbl.rows[i].classList.remove('highlighted'),3000); break; } } results.style.display='none'; }); }); } else { results.innerHTML = '<div class="no-results"><i class="fas fa-search"></i><p>Ничего не найдено</p></div>'; results.style.display='block'; } }
-    function setup() {
-        document.querySelectorAll('.folder').forEach(f=>f.addEventListener('click',()=>showCodex(f.getAttribute('data-codex'))));
-        document.querySelectorAll('.back-button').forEach(b=>b.addEventListener('click',showMainPage));
-        document.getElementById('global-search').addEventListener('input',performGlobalSearch);
-        document.getElementById('dk-search').addEventListener('input',()=>performCodexSearch('dk'));
-        document.getElementById('koap-search').addEventListener('input',()=>performCodexSearch('koap'));
-        document.getElementById('uk-search').addEventListener('input',()=>performCodexSearch('uk'));
-        document.getElementById('fp-search').addEventListener('input',()=>performCodexSearch('fp'));
-    }
-    document.addEventListener('DOMContentLoaded',()=>{ populateTables(); setup(); });
-</script>
+            console.log('✨ Сайт временно перенесён в тему «ЗАКОНЫ ОБЛАСТИ». Скоро вернёмся!');
+        })();
+    </script>
 </body>
 </html>
